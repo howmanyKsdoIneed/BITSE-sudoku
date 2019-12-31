@@ -19,6 +19,13 @@ class Sudoku
 private:
 	int board[9][9];
 
+	/// <summary>
+	///	交换棋盘上两行
+	/// </summary>
+	/// <param name="lineA">要交换的一行</param>
+	/// <param name="lineB">要交换的一行</param>
+	void SwapLine(_pos_range_ int lineA, _pos_range_ int lineB);
+
 public:
 	/// <summary>
 	///	用0初始化一个新的数独棋盘
