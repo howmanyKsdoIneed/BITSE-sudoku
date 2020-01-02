@@ -133,6 +133,7 @@ ostream& operator<<(ostream& os, const Sudoku& sudoku)
 			os << ' ' << sudoku.board[line][col];
 		os << endl;
 	}
+	return os;
 }
 
 istream& operator>>(istream& s, Sudoku& sudoku)
