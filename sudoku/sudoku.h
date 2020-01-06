@@ -5,14 +5,8 @@
 #define BITSE_SUDUKU
 #include <sal.h>
 #include <iostream>
+#include "defines.h"
 using namespace std;
-
-//合法的横纵坐标(0到8)
-#define _pos_range_ _In_range_(0, 8)
-//格里合法的值(0-9, 含空位0)
-#define _val_range_ _In_range_(0, 9)
-//格里合法的答案(1-9, 不含空位0)
-#define _ans_range_ _In_range_(1, 9)
 
 class Sudoku
 {
@@ -42,23 +36,26 @@ public:
 		_ans_range_ int upLeft
 	);
 
+
+	/// <summary>
+	///	用指定的编码和左上角数字生成数独终局
+	/// </summary>
+	/// <param name="id">数独的编码值</param>
+	/// <param name="upLeft">数独棋盘左上角的数字</param>
+	void Build(
+		_In_range_(0, 2903039) int id,
+		_ans_range_ int upLeft
+	);
+
 	/// <summary>
 	///	判断当前数独棋盘是否合法
 	/// </summary>
 	/// <param name="slotOk">指示空位(填入0的位置)是否视为合法。为true表示视为合法。</param>
 	bool IsValid(bool slotOk);
-
-	/// <summary>
-	///	递归地尝试解一个数独。参数表示当前应首先考虑的位置。若那个位置不是空位，则任选一个空位处理。
-	/// </summary>
-	/// <param name="line">当前首要空位的行，从0开始</param>
-	/// <param name="col">当前首要空位的列，从0开始</param>
-	bool Solve(
-		_pos_range_ int line = 0,
-		_pos_range_ int col = 0
-	);
-
+	 
 	inline int& At(_pos_range_ int line, _pos_range_ int col);
+
+	Sudoku& operator=(const Sudoku& src);
 
 	friend ostream& operator<<(ostream& os, const Sudoku& sudoku);
 	friend istream& operator>>(istream& s, Sudoku& sudoku);
