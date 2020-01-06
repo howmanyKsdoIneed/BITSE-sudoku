@@ -52,8 +52,8 @@ public:
 	/// </summary>
 	/// <param name="slotOk">指示空位(填入0的位置)是否视为合法。为true表示视为合法。</param>
 	bool IsValid(bool slotOk);
-	 
-	inline int& At(_pos_range_ int line, _pos_range_ int col);
+	
+	int& At(_pos_range_ int line, _pos_range_ int col);
 
 	Sudoku& operator=(const Sudoku& src);
 

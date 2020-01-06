@@ -122,7 +122,7 @@ bool Sudoku::IsValid(bool slotOk)
 	return true;
 }
 
-inline int& Sudoku::At(_pos_range_ int line, _pos_range_ int col)
+int& Sudoku::At(_pos_range_ int line, _pos_range_ int col)
 {
 	return board[line][col];
 }
