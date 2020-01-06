@@ -8,9 +8,6 @@
 #include "solver.h"
 using namespace std;
 
-//表示程序运行的模式
-enum RunMode { generate, solve, MODES };
-
 const string strOutFileName("sudoku.txt");
 const int maxCreates = 2000010;
 
@@ -20,7 +17,6 @@ void PrintUsage(ostream& os);
 
 int main(int argc, char** argv)
 {
-	RunMode enMode = generate;
 	if (argc < 3)	//参数个数小于2个，表明调用方式不正确
 	{
 		PrintUsage(cerr);
