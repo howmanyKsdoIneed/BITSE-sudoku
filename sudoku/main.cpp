@@ -6,15 +6,13 @@
 #include <stdexcept>
 #include "sudoku.h"
 #include "solver.h"
+#include "main.h"
 using namespace std;
 
-const string strOutFileName("sudoku.txt");
-const int maxCreates = 2000010;
-
-void CreateEndgame(_In_range_(0, maxCreates) int count);
-void Solve(istream& file);
-void PrintUsage(ostream& os);
-
+/// <summary>
+/// 程序执行入口
+/// 任务分析参数，然后调用相应的模块实际执行
+/// </summary>
 int main(int argc, char** argv)
 {
 	if (argc < 3)	//参数个数小于2个，表明调用方式不正确
@@ -72,4 +70,52 @@ void PrintUsage(ostream& os)
 	os << "用法: " << endl;
 	os << "生成数独终局: sudoku.exe -c 数目" << endl;
 	os << "求解数独: sudoku.exe -s 题目文件名" << endl;
+}
+
+void CreateEndgame(_In_range_(0, maxCreates) int count)
+{
+	ofstream fOutFile(strOutFileName, fstream::out | fstream::trunc);
+	if (!fOutFile.is_open())
+	{
+		cerr << "错误：无法打开结果输出文件 " << strOutFileName << endl;
+		return;
+	}
+	Sudoku endGame;
+	for (count--; count >= 0; count--)
+	{
+		endGame.Build(count, upLeft);
+		fOutFile << endGame;
+		if (count > 0)
+			fOutFile << endl;
+	}
+	fOutFile.close();
+	return;
+}
+
+void Solve(istream& file)
+{
+	ofstream fOutFile(strOutFileName, fstream::out | fstream::trunc);
+	if (!fOutFile.is_open())
+	{
+		cerr << "错误：无法打开结果输出文件 " << strOutFileName << endl;
+		return;
+	}
+
+	Sudoku puzzle;
+	Solver solver(puzzle);
+	int count = 1;
+	while (!file.eof())
+	{
+		file >> puzzle;
+		solver.Reload(puzzle);
+		if (count != 1)
+			fOutFile << endl;
+		if (solver.Solve())	//解数独成功
+			fOutFile << solver;
+		else
+			fOutFile << endl << "谜题 #" << count << " 无解。" << endl;
+
+		count++;
+	}
+	return;
 }
