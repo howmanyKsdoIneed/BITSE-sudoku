@@ -20,8 +20,8 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
-    <ProjectGuid>{AABCF162-7861-4890-A210-88213B018796}</ProjectGuid>
-    <RootNamespace>sudoku</RootNamespace>
+    <ProjectGuid>{AEA17AD9-467B-498B-AF92-556E188A9871}</ProjectGuid>
+    <RootNamespace>modulecreate</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -71,9 +71,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>..\bin\</OutDir>
-    <RunCodeAnalysis>true</RunCodeAnalysis>
-    <CodeAnalysisRuleSet>NativeRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <OutDir>..\..\bin\test\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -90,7 +88,6 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <EnablePREfast>true</EnablePREfast>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -142,15 +139,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\sudoku\sudoku.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="solver.cpp" />
-    <ClCompile Include="sudoku.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="defines.h" />
-    <ClInclude Include="main.h" />
-    <ClInclude Include="solver.h" />
-    <ClInclude Include="sudoku.h" />
+    <ClInclude Include="..\..\sudoku\sudoku.h" />
+    <ClInclude Include="module-create.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

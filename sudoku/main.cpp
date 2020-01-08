@@ -9,13 +9,17 @@
 #include "main.h"
 using namespace std;
 
+const string strOutFileName("sudoku.txt");
+constexpr int maxCreates = 2000010;
+constexpr int upLeft = 3;
+
 /// <summary>
 /// 程序执行入口
 /// 任务分析参数，然后调用相应的模块实际执行
 /// </summary>
-int main(int argc, char** argv)
+int main(int argc,_Notnull_ const char** argv)
 {
-	if (argc < 3)	//参数个数小于2个，表明调用方式不正确
+	if (argc < 3 || argv == nullptr)	//参数个数小于2个，表明调用方式不正确
 	{
 		PrintUsage(cerr);
 		return 0;
@@ -28,7 +32,7 @@ int main(int argc, char** argv)
 
 	if (argv[1][1] == 'c')
 	{
-		int iOutCount = atoi(argv[2]);
+		const int iOutCount = atoi(argv[2]);
 		if (iOutCount <= 0)
 		{
 			cerr << "错误：未能将第二个参数识别为正整数" << endl;
@@ -102,7 +106,7 @@ void Solve(istream& file)
 	}
 
 	Sudoku puzzle;
-	Solver solver(puzzle);
+	Solver solver;
 	int count = 1;
 	while (!file.eof())
 	{

@@ -24,7 +24,7 @@ public:
 	/// <summary>
 	///	用0初始化一个新的数独棋盘
 	/// </summary>
-	Sudoku();
+	Sudoku()noexcept;
 
 	/// <summary>
 	///	用指定的编码和左上角数字初始化一个新的数独棋盘，相当于终局生成模块
@@ -56,6 +56,7 @@ public:
 	int& At(_pos_range_ int line, _pos_range_ int col);
 
 	Sudoku& operator=(const Sudoku& src);
+	bool operator==(const Sudoku& another);
 
 	friend ostream& operator<<(ostream& os, const Sudoku& sudoku);
 	friend istream& operator>>(istream& s, Sudoku& sudoku);

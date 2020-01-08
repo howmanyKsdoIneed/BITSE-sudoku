@@ -17,7 +17,13 @@ public:
 	/// 初始化解题对象
 	/// 拷贝传入的数独，作为将解的谜题
 	/// </summary>
-	Solver(const Sudoku& _puzzle) :puzzle(_puzzle) {}
+	Solver(const Sudoku& _puzzle)noexcept :puzzle(_puzzle) {}
+
+	/// <summary>
+	/// 初始化解题对象
+	/// 此时的棋盘是全空的！
+	/// </summary>
+	Solver()noexcept {}
 
 	/// <summary>
 	/// 重新初始化解题对象

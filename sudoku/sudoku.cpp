@@ -10,7 +10,7 @@ using namespace std;
 int GetOffset(_In_range_(0, 40319) int topId, _pos_range_ int pos);
 
 
-Sudoku::Sudoku() :board{ {0} } {}
+Sudoku::Sudoku()noexcept :board{ {0} } {}
 
 Sudoku::Sudoku(_In_range_(0, 2903039) int id, _ans_range_ int upLeft) : board{ {0} } { Build(id, upLeft); }
 
@@ -22,7 +22,7 @@ void Sudoku::Build(_In_range_(0, 2903039) int id, _ans_range_ int upLeft)
 	swap(board[0][0], board[0][upLeft - 1]);
 
 	//生成第一行其他部分
-	int iTopCode = id / 72;//说明文档“终局生成”一节中的a
+	const int iTopCode = id / 72;//说明文档“终局生成”一节中的a
 	for (int col = 1; col < 8; col++)	//最后一列不需考虑
 		swap(board[0][col], board[0][col + GetOffset(iTopCode, col)]);
 
@@ -44,9 +44,9 @@ void Sudoku::Build(_In_range_(0, 2903039) int id, _ans_range_ int upLeft)
 	}
 
 	//按编码调换剩余行的顺序
-	int topId = (id % 72) / 36;	//二、三行的编码
-	int midId = (id % 36) / 6;	//4-6行的编码
-	int btmId = id % 6;			//7-9行的编码
+	const int topId = (id % 72) / 36;	//二、三行的编码
+	const int midId = (id % 36) / 6;	//4-6行的编码
+	const int btmId = id % 6;			//7-9行的编码
 	//2-3行
 	if (topId != 0)
 		SwapLine(1, 2);
@@ -133,6 +133,15 @@ Sudoku& Sudoku::operator=(const Sudoku& src)
 		for (int col = 0; col < 9; col++)
 			board[line][col] = src.board[line][col];
 	return *this;
+}
+
+bool Sudoku::operator==(const Sudoku& another)
+{
+	for (int line = 0; line < 9; line++)
+		for (int col = 0; col < 9; col++)
+			if (board[line][col] != another.board[line][col])
+				return false;
+	return true;
 }
 
 ostream& operator<<(ostream& os, const Sudoku& sudoku)
