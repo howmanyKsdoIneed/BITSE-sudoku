@@ -65,8 +65,8 @@ int main(int argc, char** argv)
 		{
 			if (vEndgames[first] == vEndgames[second])
 			{
-				/*if (vIDs[first] == vIDs[second])
-					continue;*/
+				if (vIDs[first] == vIDs[second])
+					continue;
 				cerr << "终局#" << vIDs[first] << 
 					"和终局#" << vIDs[second] << "相同" << endl;
 				cerr << "冲突的终局：" << endl << vEndgames[first] << endl;
