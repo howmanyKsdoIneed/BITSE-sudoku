@@ -73,8 +73,8 @@ int main(int argc, char** argv)
 				correct = false;
 			}
 		}
-		if (correct)
-			cout << "终局#" << vIDs[first] << "正确" << endl;
+		/*if (correct)
+			cout << "终局#" << vIDs[first] << "正确" << endl;*/
 	}
 	vEndgames.clear();
 }

@@ -16,6 +16,11 @@ Sudoku::Sudoku(_In_range_(0, 2903039) int id, _ans_range_ int upLeft) : board{ {
 
 void Sudoku::Build(_In_range_(0, 2903039) int id, _ans_range_ int upLeft)
 {
+	if (id < 0 || id>2903039)
+		id = 0;
+	if (upLeft <= 0 || upLeft > 9)
+		upLeft = 1;
+
 	//初始化第一行，固定第一行第一列的数字
 	for (int i = 0; i < 9; i++)
 		board[0][i] = i + 1;
