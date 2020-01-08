@@ -55,7 +55,7 @@ foundSlot:;
 			continue;
 		puzzle.At(line, col) = i;
 		if (Solve())	//向下递归的结果是得解，就返回得解，并保持棋盘状态不变
-			return 1;
+			return true;
 	}
 
 	//所有可能的数字都无解，还原棋盘并返回无解
