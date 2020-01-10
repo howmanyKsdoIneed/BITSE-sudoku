@@ -127,11 +127,6 @@ bool Sudoku::IsValid(bool slotOk)
 	return true;
 }
 
-int& Sudoku::At(_pos_range_ int line, _pos_range_ int col)
-{
-	return board[line][col];
-}
-
 Sudoku& Sudoku::operator=(const Sudoku& src)
 {
 	for (int line = 0; line < 9; line++)

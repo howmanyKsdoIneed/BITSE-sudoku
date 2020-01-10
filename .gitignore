@@ -339,3 +339,4 @@ ASALocalRun/
 healthchecksdb
 /sudoku/bin/sudoku.exe.lastcodeanalysissucceeded
 *.lastcodeanalysissucceeded
+*.diagsession
