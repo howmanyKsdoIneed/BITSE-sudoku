@@ -78,21 +78,22 @@ void PrintUsage(ostream& os)
 
 void CreateEndgame(_In_range_(0, maxCreates) int count)
 {
-	ofstream fOutFile(strOutFileName, fstream::out | fstream::trunc);
-	if (!fOutFile.is_open())
+	FILE* fOutFile = nullptr;
+	errno_t err = fopen_s(&fOutFile, strOutFileName.c_str(), "w");
+	if (err)
 	{
-		cerr << "错误：无法打开结果输出文件 " << strOutFileName << endl;
+		cerr << "错误：无法打开结果输出文件" << strOutFileName << endl;
 		return;
 	}
 	Sudoku endGame;
 	for (count--; count >= 0; count--)
 	{
 		endGame.Build(count, upLeft);
-		fOutFile << endGame;
+		endGame.Print(fOutFile);
 		if (count > 0)
-			fOutFile << endl;
+			fprintf_s(fOutFile, "\n");
 	}
-	fOutFile.close();
+	fclose(fOutFile);
 	return;
 }
 

@@ -127,6 +127,18 @@ bool Sudoku::IsValid(bool slotOk)
 	return true;
 }
 
+void Sudoku::Print(FILE* outFile)
+{
+	for (int line = 0; line < 9; line++)
+	{
+		fprintf_s(outFile, "%d", At(line, 0));
+		for (int col = 1; col < 9; col++)
+			fprintf_s(outFile, " %d", At(line, col));
+		fprintf_s(outFile, "\n");
+	}
+	return;
+}
+
 Sudoku& Sudoku::operator=(const Sudoku& src)
 {
 	for (int line = 0; line < 9; line++)
