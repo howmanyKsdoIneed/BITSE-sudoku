@@ -26,10 +26,10 @@ bool Solver::Solve(_pos_range_ int line, _pos_range_ int col)
 			for (col = 0; col < 9; col++)
 				if (puzzle.At(line, col) == 0)
 					goto foundSlot;
+		//运行至此表明已遍历棋盘上所有位置，未找到空位
+		//若数独合法，返回true
+		return IsValid(false);
 	}
-	//运行至此表明已遍历棋盘上所有位置，未找到空位
-	//若数独合法，返回true
-	return IsValid(false);
 
 foundSlot:;
 
