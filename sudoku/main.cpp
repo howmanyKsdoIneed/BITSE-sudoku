@@ -1,5 +1,6 @@
 //main.cpp
 //sudoku.exe 主程序文件
+#define _CRT_SECURE_NO_WARNINGS
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -85,15 +86,20 @@ void CreateEndgame(_In_range_(0, maxCreates) int count)
 		cerr << "错误：无法打开结果输出文件" << strOutFileName << endl;
 		return;
 	}
-	Sudoku endGame;
-	for (count--; count >= 0; count--)
+	if (fOutFile != nullptr)
 	{
-		endGame.Build(count, upLeft);
-		endGame.Print(fOutFile);
-		if (count > 0)
-			fprintf_s(fOutFile, "\n");
+		setbuf(fOutFile, new char[4096]);
+
+		Sudoku endGame;
+		for (count--; count >= 0; count--)
+		{
+			endGame.Build(count, upLeft);
+			endGame.Print(fOutFile);
+			if (count > 0)
+				fprintf_s(fOutFile, "\n");
+		}
+		fclose(fOutFile);
 	}
-	fclose(fOutFile);
 	return;
 }
 
