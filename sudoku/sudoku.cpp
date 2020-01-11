@@ -16,6 +16,10 @@ Sudoku::Sudoku(_In_range_(0, 2903039) int id, _ans_range_ int upLeft) : board{ {
 
 void Sudoku::Build(_In_range_(0, 2903039) int id, _ans_range_ int upLeft)
 {
+	int* builder[9]{ nullptr };
+	for (int line = 0; line < 9; line++)
+		builder[line] = new int[9];
+
 	if (id < 0 || id>2903039)
 		id = 0;
 	if (upLeft <= 0 || upLeft > 9)
@@ -23,28 +27,28 @@ void Sudoku::Build(_In_range_(0, 2903039) int id, _ans_range_ int upLeft)
 
 	//初始化第一行，固定第一行第一列的数字
 	for (int i = 0; i < 9; i++)
-		board[0][i] = i + 1;
-	swap(board[0][0], board[0][upLeft - 1]);
+		builder[0][i] = i + 1;
+	swap(builder[0][0], builder[0][upLeft - 1]);
 
 	//生成第一行其他部分
 	const int iTopCode = id / 72;//说明文档“终局生成”一节中的a
 	for (int col = 1; col < 8; col++)	//最后一列不需考虑
-		swap(board[0][col], board[0][col + GetOffset(iTopCode, col)]);
+		swap(builder[0][col], builder[0][col + GetOffset(iTopCode, col)]);
 
 	//生成其余行的初始状态
 	//二、三行
 	for (int col = 0; col < 9; col++)
 	{
-		board[1][col] = board[0][(col + 3) % 9];
-		board[2][col] = board[0][(col + 6) % 9];
+		builder[1][col] = builder[0][(col + 3) % 9];
+		builder[2][col] = builder[0][(col + 6) % 9];
 	}
 	//剩余行
 	for (int subline = 0; subline < 3; subline++)
 	{
 		for (int col = 0; col < 9; col++)
 		{
-			board[subline + 3][col] = board[subline][(col + 1) % 9];
-			board[subline + 6][col] = board[subline][(col + 2) % 9];
+			builder[subline + 3][col] = builder[subline][(col + 1) % 9];
+			builder[subline + 6][col] = builder[subline][(col + 2) % 9];
 		}
 	}
 
@@ -54,13 +58,20 @@ void Sudoku::Build(_In_range_(0, 2903039) int id, _ans_range_ int upLeft)
 	const int btmId = id % 6;			//7-9行的编码
 	//2-3行
 	if (topId != 0)
-		SwapLine(1, 2);
+		swap(builder[1], builder[2]);
 	//4-6行
-	SwapLine(3, 3 + (midId % 3));
-	SwapLine(4, 4 + (midId % 2));
+	swap(builder[3], builder[3 + (midId % 3)]);
+	swap(builder[4], builder[4 + (midId % 2)]);
 	//7-9行
-	SwapLine(6, 6 + (btmId % 3));
-	SwapLine(7, 7 + (btmId % 2));
+	swap(builder[6], builder[6 + (btmId % 3)]);
+	swap(builder[7], builder[7 + (btmId % 2)]);
+
+	for (int line = 0; line < 9; line++)
+	{
+		for (int col = 0; col < 9; col++)
+			At(line, col) = builder[line][col];
+		delete[] builder[line];
+	}
 }
 
 bool Sudoku::IsValid(bool slotOk)

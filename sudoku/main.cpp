@@ -88,8 +88,6 @@ void CreateEndgame(_In_range_(0, maxCreates) int count)
 	}
 	if (fOutFile != nullptr)
 	{
-		setbuf(fOutFile, new char[4096]);
-
 		Sudoku endGame;
 		for (count--; count >= 0; count--)
 		{
