@@ -22,7 +22,7 @@ void Solver::Reload(const Sudoku& src)
 				}
 				for (int subL = 0; subL < 3; subL++)
 					for (int subC = 0; subC < 3; subC++)
-						canFit[line / 3 + subL][col / 3 + subC][num] = false;
+						canFit[line - (line % 3) + subL][col - (col % 3) + subC][num] = false;
 			}
 		}
 	}
@@ -95,12 +95,12 @@ bool Solver::Solve(_pos_range_ int line, _pos_range_ int col)
 						}
 						for(int subL=0;subL<3;subL++)
 							for (int subC = 0; subC < 3; subC++)
-								if (canFit[_line / 3 + subL][_col / 3 + subC][num])
+								if (canFit[_line - (_line % 3) + subL][_col - (_col % 3) + subC][num])
 								{
-									canFit[_line / 3 + subL][_col / 3 + subC][num] = false;
-									fitCount[_line / 3 + subL][_col / 3 + subC]--;
-									prefitL.push_back(_line / 3 + subL);
-									prefitC.push_back(_col / 3 + subC);
+									canFit[_line - (_line % 3) + subL][_col - (_col % 3) + subC][num] = false;
+									fitCount[_line - (_line % 3) + subL][_col - (_col % 3) + subC]--;
+									prefitL.push_back(_line - (_line % 3) + subL);
+									prefitC.push_back(_col - (_col % 3) + subC);
 									prefitNum.push_back(num);
 								}
 
@@ -173,12 +173,12 @@ bool Solver::Solve(_pos_range_ int line, _pos_range_ int col)
 		{
 			for (int subC = 0; subC < 3; subC++)
 			{
-				if (canFit[line / 3 + subL][col / 3 + subC][num])
+				if (canFit[line - (line % 3) + subL][col - (col % 3) + subC][num])
 				{
-					canFit[line / 3 + subL][col / 3 + subC][num] = false;
-					fitCount[line / 3 + subL][col / 3 + subC]--;
-					fitL.push_back(line / 3 + subL);
-					fitC.push_back(col / 3 + subC);
+					canFit[line - (line % 3) + subL][col - (col % 3) + subC][num] = false;
+					fitCount[line - (line % 3) + subL][col - (col % 3) + subC]--;
+					fitL.push_back(line - (line % 3) + subL);
+					fitC.push_back(col - (col % 3) + subC);
 				}
 			}
 		}
