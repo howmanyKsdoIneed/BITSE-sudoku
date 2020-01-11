@@ -48,6 +48,8 @@ public:
 		_pos_range_ int col = 0
 	);
 
+	inline void Print(FILE* fOutFile) { puzzle.Print(fOutFile); }
+
 	friend ostream& operator<<(ostream& os, const Solver& solver);
 };
 
