@@ -142,10 +142,19 @@ void Sudoku::Print(FILE* outFile)
 {
 	for (int line = 0; line < 9; line++)
 	{
-		fprintf_s(outFile, "%d", At(line, 0));
-		for (int col = 1; col < 9; col++)
-			fprintf_s(outFile, " %d", At(line, col));
-		fprintf_s(outFile, "\n");
+		fprintf_s(
+			outFile,
+			"%d %d %d %d %d %d %d %d %d\n",
+			At(line, 0),
+			At(line, 1),
+			At(line, 2),
+			At(line, 3),
+			At(line, 4),
+			At(line, 5),
+			At(line, 6),
+			At(line, 7),
+			At(line, 8)
+		);
 	}
 	return;
 }
