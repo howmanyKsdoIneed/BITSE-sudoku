@@ -10,6 +10,12 @@ class Solver
 {
 private:
 	Sudoku puzzle;
+	//canFit[i][j][k]表示第i行第j列是否可以填入k
+	bool canFit[9][9][10];
+
+	//fitCount[i][j]表示第i行第j列有几种可能的填法，0除外
+	//应始终等于canFit对应项中非0且为true的个数
+	int fitCount[9][9];
 
 public:
 
@@ -17,13 +23,13 @@ public:
 	/// 初始化解题对象
 	/// 拷贝传入的数独，作为将解的谜题
 	/// </summary>
-	Solver(const Sudoku& _puzzle)noexcept :puzzle(_puzzle) {}
+	Solver(const Sudoku& _puzzle)noexcept { Reload(_puzzle); }
 
 	/// <summary>
 	/// 初始化解题对象
 	/// 此时的棋盘是全空的！
 	/// </summary>
-	Solver()noexcept {}
+	Solver()noexcept { Reload(Sudoku()); }
 
 	/// <summary>
 	/// 重新初始化解题对象
@@ -36,7 +42,7 @@ public:
 	/// 使用内部Sudoku对象的IsValid方法
 	/// </summary>
 	/// <param name="slotOk">指示空位(填入0的位置)是否视为合法。为true表示视为合法。</param>
-	inline bool IsValid(bool slotOK);
+	inline bool IsValid(bool slotOK) { return puzzle.IsValid(slotOK); }
 
 	/// <summary>
 	///	递归地尝试解一个数独。参数表示当前应首先考虑的位置。若那个位置不是空位，则任选一个空位处理。
