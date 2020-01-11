@@ -10,32 +10,25 @@ class Solver
 {
 private:
 	Sudoku puzzle;
-	//canFit[i][j][k]表示第i行第j列是否可以填入k
-	bool canFit[9][9][10];
-
-	//fitCount[i][j]表示第i行第j列有几种可能的填法，0除外
-	//应始终等于canFit对应项中非0且为true的个数
-	int fitCount[9][9];
-
 public:
 
 	/// <summary>
 	/// 初始化解题对象
 	/// 拷贝传入的数独，作为将解的谜题
 	/// </summary>
-	Solver(const Sudoku& _puzzle)noexcept { Reload(_puzzle); }
+	inline Solver(const Sudoku& _puzzle)noexcept { Reload(_puzzle); }
 
 	/// <summary>
 	/// 初始化解题对象
 	/// 此时的棋盘是全空的！
 	/// </summary>
-	Solver()noexcept { Reload(Sudoku()); }
+	inline Solver()noexcept { Reload(Sudoku()); }
 
 	/// <summary>
 	/// 重新初始化解题对象
 	/// 拷贝传入的数独，作为将解的谜题
 	/// </summary>
-	void Reload(const Sudoku& src);
+	inline void Reload(const Sudoku& src) { puzzle = src; }
 
 	/// <summary>
 	///	判断当前数独棋盘是否合法
@@ -59,6 +52,6 @@ public:
 	friend ostream& operator<<(ostream& os, const Solver& solver);
 };
 
-ostream& operator<<(ostream& os, const Solver& solver);
+inline ostream& operator<<(ostream& os, const Solver& solver) { return os << solver.puzzle; }
 
 #endif
