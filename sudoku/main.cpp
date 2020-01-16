@@ -126,7 +126,8 @@ void Solve(FILE* file)
 			solver.Print(fOutFile);
 		else
 			fprintf_s(fOutFile, "谜题#%d 无解。\n", count);
-
+		if (count % 10000 == 0)
+			cout << "谜题#" << count << endl;
 		count++;
 	}
 	return;
