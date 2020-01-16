@@ -14,7 +14,7 @@ void CreateEndgame(_In_range_(0, maxCreates) int count);
 /// 解数独模块的执行入口
 /// 题目文件须事先准备好
 /// <summary>
-void Solve(istream& file);
+void Solve(FILE* file);
 
 void PrintUsage(ostream& os);
 

@@ -159,6 +159,26 @@ void Sudoku::Print(FILE* outFile)
 	return;
 }
 
+int Sudoku::Read(FILE* inFile)
+{
+	for (int line = 0; line < 9; line++)
+	{
+		if (fscanf_s(inFile, "%d%d%d%d%d%d%d%d%d",
+			&(At(line, 0)),
+			&(At(line, 1)),
+			&(At(line, 2)),
+			&(At(line, 3)),
+			&(At(line, 4)),
+			&(At(line, 5)),
+			&(At(line, 6)),
+			&(At(line, 7)),
+			&(At(line, 8))
+		) == EOF)
+			return EOF;
+	}
+	return 0;
+}
+
 Sudoku& Sudoku::operator=(const Sudoku& src)
 {
 	for (int line = 0; line < 9; line++)

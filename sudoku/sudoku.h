@@ -53,7 +53,18 @@ public:
 	/// <param name="slotOk">指示空位(填入0的位置)是否视为合法。为true表示视为合法。</param>
 	bool IsValid(bool slotOk);
 
+	/// <summary>
+	/// 将数独棋盘的状况输出到文件中
+	/// </summary>
+	/// <param name="outFile">要写入的文件，可以是stdout和stderr</param>
 	void Print(FILE* outFile);
+
+	/// <summary>
+	/// 从文件中读入数独棋盘的状况
+	/// 返回0或EOF
+	/// </summary>
+	/// <param name="outFile">要写入的文件，可以是stdout和stderr</param>
+	int Read(FILE* inFile);
 	
 	inline int& At(_pos_range_ int line, _pos_range_ int col) { return board[line][col]; }
 

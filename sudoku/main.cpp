@@ -51,14 +51,15 @@ int main(int argc,_Notnull_ const char** argv)
 	}
 	else if (argv[1][1] == 's')
 	{
-		ifstream fInFile(argv[2]);
-		if (fInFile.is_open())
-			Solve(fInFile);
-		else
+		FILE* fInFile = nullptr;
+		errno_t err = fopen_s(&fInFile, argv[2], "r");
+		if (err)
 		{
 			cerr << "未能成功打开输入文件 " << argv[2] << endl;
 			return -1;
 		}
+		else
+			Solve(fInFile);
 	}
 	else
 	{
@@ -101,28 +102,30 @@ void CreateEndgame(_In_range_(0, maxCreates) int count)
 	return;
 }
 
-void Solve(istream& file)
+void Solve(FILE* file)
 {
-	ofstream fOutFile(strOutFileName, fstream::out | fstream::trunc);
-	if (!fOutFile.is_open())
+	FILE* fOutFile = nullptr;
+	errno_t err = fopen_s(&fOutFile, strOutFileName.c_str(), "w");
+	if (err || fOutFile == nullptr)
 	{
-		cerr << "错误：无法打开结果输出文件 " << strOutFileName << endl;
+		cerr << "错误：无法打开结果输出文件" << strOutFileName << endl;
 		return;
 	}
 
 	Sudoku puzzle;
 	Solver solver;
 	int count = 1;
-	while (!file.eof())
+	while (true)
 	{
-		file >> puzzle;
+		if (puzzle.Read(file) == EOF)
+			break;
 		solver.Reload(puzzle);
 		if (count != 1)
-			fOutFile << endl;
+			fputc('\n', fOutFile);
 		if (solver.Solve())	//解数独成功
-			fOutFile << solver;
+			solver.Print(fOutFile);
 		else
-			fOutFile << endl << "谜题 #" << count << " 无解。" << endl;
+			fprintf_s(fOutFile, "谜题#%d 无解。\n", count);
 
 		count++;
 	}

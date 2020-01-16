@@ -5,16 +5,17 @@ using namespace std;
 int main()
 {
 	clock_t cBegin, cEnd;
-	ifstream fPuzzle("solve_testcase.txt");
-	if (!fPuzzle.is_open())
+	FILE* fPuzzle = nullptr;
+	errno_t err = fopen_s(&fPuzzle, "solve_testcase.txt", "r");
+	if (err)
 	{
-		cerr << "Could not open input file" << endl;
+		cerr << "错误：无法打开文件" << endl;
 		return -1;
 	}
 
 	Sudoku inTemp;
 	Solver solver;
-	fPuzzle >> inTemp;
+	inTemp.Read(fPuzzle);
 	solver.Reload(inTemp);
 	cout << "Puzzle:" << endl;
 	cout << solver << endl;
